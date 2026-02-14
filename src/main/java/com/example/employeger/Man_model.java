@@ -1,0 +1,66 @@
+package com.example.employeger;
+
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+@Entity
+@Table(name = "Manager")
+
+public class Man_model
+{
+    String Manager_name;
+    String Mang_Password;
+ @Id
+ @GeneratedValue(strategy = GenerationType.UUID)
+ String Manager_id;
+ String Manager_email;
+ String ROLE;
+
+    @OneToMany(mappedBy = "TeamManager", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Emp_model> employees= new ArrayList<>();
+
+ //Getters-Setters
+
+    public String getManager_name() {
+    return Manager_name;
+}
+public void setManager_name(String Manager_name) {
+    this.Manager_name = Manager_name;
+}
+
+
+public String getManager_id() {
+    return Manager_id;
+}
+public void setManager_id(String Manager_id) {
+    this.Manager_id = "M"+ Manager_id;
+}
+
+
+public String getManager_Password() {
+    return Mang_Password;
+}
+public void setManager_Password(String Mang_Password) {
+    this.Mang_Password = Mang_Password;
+}
+
+
+public String getROLE()
+{
+    return ROLE;
+}
+public void setROLE(String ROLE) {
+    this.ROLE = ROLE;
+}
+
+
+public String getManager_email() {
+    return Manager_email;
+}
+public void setManager_email(String Manager_email) {
+    this.Manager_email = this.Manager_email;
+}
+}
