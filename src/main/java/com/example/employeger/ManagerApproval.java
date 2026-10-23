@@ -42,26 +42,25 @@ package com.example.employeger;
 
           Emp_model emp = new Emp_model();
 
-              emp.setEmp_name(backlog.getEmployeeName());
-              emp.setEmp_Email(backlog.getEmployeeEmail());
+          emp.setEmp_name(backlog.getEmployeeName());
+          emp.setEmp_Email(backlog.getEmployeeEmail());
 
-              String hashedPassword = encoder.encode(backlog.getPassword());
-              emp.setEmp_Password(hashedPassword);
-              emp.setEmp_Password(backlog.getPassword());  // already hashed
+          String hashedPassword = encoder.encode(backlog.getPassword());
+          emp.setEmp_Password(hashedPassword);
 
-              emp.setROLE("EMPLOYEE");
-              emp.setCasual_leaves(10);
-              emp.setEmp_Salary(35000);
-              emp.setPaid_leaves(25);
+          emp.setROLE("EMPLOYEE");
+          emp.setCasual_leaves(10);
+          emp.setEmp_Salary(35000);
+          emp.setPaid_leaves(25);
 
-              // Link manager using email stored in backlog
-              Man_model manager = managerRepository.findByManagerEmail(backlog.getManagerName())
-                      .orElseThrow(() -> new IllegalStateException("Manager does not exist!"));
+          // Link manager using email stored in backlog
+          Man_model manager = managerRepository.findByManagerEmail(backlog.getManagerName())
+                  .orElseThrow(() -> new IllegalStateException("Manager does not exist!"));
 
-              emp.setTeammanager(manager);
+          emp.setTeamManager(manager);
 
-              // Save to PostgreSQL
-              empRepository.save(emp);
+          // Save to PostgreSQL
+          empRepository.save(emp);
 
 
       }

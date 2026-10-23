@@ -61,6 +61,13 @@ public String getManager_email() {
     return Manager_email;
 }
 public void setManager_email(String Manager_email) {
-    this.Manager_email = this.Manager_email;
+    this.Manager_email = Manager_email;
+}
+
+public List<Emp_model> getEmployees() {
+    return employees;
+}
+public void setEmployees(List<Emp_model> employees) {
+    this.employees = employees;
 }
 }
