@@ -41,7 +41,10 @@ public class BacklogBase implements Serializable
      public void setRole(String Role) {this.Role = Role;}
 
      public String getManager_name() { return Manager_name; }
-     public void setManager_name(String Manager_name) {this.Manager_name = this.Manager_name;}
+     public void setManager_name(String Manager_name) {this.Manager_name = Manager_name;}
+
+     public String getManagerName() { return Manager_name; }
+     public void setManagerName(String managerName) {this.Manager_name = managerName;}
 
 
      public String getType() { return type; }
