@@ -34,6 +34,11 @@ public class EmployeeEvent extends ApplicationEvent
             return backlogbase;
         }
 
+        public BacklogBase getLeaveRequest()
+        {
+            return backlogbase;
+        }
+
 
     }
 
