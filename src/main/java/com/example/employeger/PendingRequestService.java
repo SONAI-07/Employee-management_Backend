@@ -1,29 +1,38 @@
 package com.example.employeger;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
+@Service
 public class PendingRequestService
 {
+    private final ApplicationEventPublisher publisher;
+    private final BacklogRepo backRepo;
 
-    private ApplicationEventPublisher publisher;
-    private BacklogRepo BackRepo;
-
+    @Autowired
+    public PendingRequestService(ApplicationEventPublisher publisher, BacklogRepo backRepo) {
+        this.publisher = publisher;
+        this.backRepo = backRepo;
+    }
 
     public String createPendingRequest(BacklogBase bactry)
-
     {
-        bactry.setEmployeeEmail(bactry.getEmployeeEmail());
-        bactry.setEmployeeName(bactry.getEmployeeName());
-        bactry.setPassword(bactry.getPassword());
-        bactry.setManager_name(bactry.getManager_name());
+        if (bactry.getEmployee_id() == null || bactry.getEmployee_id().isBlank()) {
+            bactry.setEmployee_id(UUID.randomUUID().toString());
+        }
 
-        BackRepo.save(bactry);
+        backRepo.save(bactry);
 
-        publisher.publishEvent(new EmployeeEvent(this, EmployeeEvent.EventType.SIGNUP, null));
+        EmployeeEvent.EventType eventType = "LEAVE".equalsIgnoreCase(bactry.getType())
+                ? EmployeeEvent.EventType.LEAVE_REQUEST
+                : EmployeeEvent.EventType.SIGNUP;
+
+        publisher.publishEvent(new EmployeeEvent(this, eventType, bactry));
 
         return "Employee registration details sent for Manager Verification.";
-
     }
 }
 
