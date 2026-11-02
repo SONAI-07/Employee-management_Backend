@@ -17,14 +17,18 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 @EnableWebSecurity
 public class SecurityConfig
 {
-    private UserDetailServ userDetailServ;
+    private final UserDetailServ userDetailServ;
+
+    @Autowired
+    public SecurityConfig(UserDetailServ userDetailServ) {
+        this.userDetailServ = userDetailServ;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-
         return http.authorizeHttpRequests(request -> request
-                        .requestMatchers("/Dash-Access/**","/Sign-up").permitAll()
+                        .requestMatchers("/Dash-Access/**", "/Sign-up", "/Employee-Services/**", "/api/**").permitAll()
                         .requestMatchers("/Employee-Dash/**").hasRole("EMPLOYEE")
                         .requestMatchers("/Manager-Dash/**").hasRole("MANAGER")
                         .anyRequest()
