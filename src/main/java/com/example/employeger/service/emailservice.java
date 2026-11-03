@@ -1,7 +1,6 @@
 package com.example.employeger.service;
 
 import com.example.employeger.model.BacklogBase;
-import com.example.employeger.model.Emp_model;
 import com.example.employeger.model.Man_model;
 import com.example.employeger.repository.Man_Repo;
 import org.springframework.mail.SimpleMailMessage;
@@ -24,12 +23,11 @@ public class emailservice {
 
     public void sendManagerVerificationEmail(BacklogBase request) {
         String managerEmail = resolveManagerEmail(request.getManager_name());
-
         String approveLink = BASE_URL + "/approve/" + request.getEmployee_id();
         String rejectLink  = BASE_URL + "/reject/"  + request.getEmployee_id();
 
         String body = "Dear Manager,\n\n"
-                + "A new employee (" + request.getEmployeeName() + ") has requested registration under your team.\n\n"
+                + "A new employee (" + request.getEmployeeName() + ") has requested registration.\n\n"
                 + "Approve: " + approveLink + "\n"
                 + "Reject:  " + rejectLink + "\n\n"
                 + "Regards,\nEmployeger Team";
@@ -39,7 +37,6 @@ public class emailservice {
 
     public void sendEmployeeLeaveEmail(BacklogBase request) {
         String managerEmail = resolveManagerEmail(request.getManager_name());
-
         String approveLink = BASE_URL + "/approve/" + request.getEmployee_id();
         String rejectLink  = BASE_URL + "/reject/"  + request.getEmployee_id();
 
@@ -53,18 +50,15 @@ public class emailservice {
         sendEmail(managerEmail, "Employee Leave Request", body);
     }
 
-    // Helper: Resolve manager email from the manager_name field (which stores the email)
     private String resolveManagerEmail(String managerIdentifier) {
         if (managerIdentifier == null || managerIdentifier.isBlank()) {
             return "manager@example.com";
         }
-
         return manRepo.findByManagerEmail(managerIdentifier)
                 .map(Man_model::getManager_email)
-                .orElse(managerIdentifier); // Fallback: use the value directly as email
+                .orElse(managerIdentifier);
     }
 
-    // Helper: Send the actual email
     private void sendEmail(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(SYSTEM_EMAIL);
