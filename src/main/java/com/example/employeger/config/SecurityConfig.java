@@ -1,6 +1,6 @@
 package com.example.employeger.config;
 
-import com.example.employeger.UserDetailServ; // Change to .service.UserDetailServ if you moved it
+import com.example.employeger.service.UserDetailServ;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,16 +28,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(request -> request
-                        // Public endpoints (Signup happens here)
                         .requestMatchers("/api/public/**").permitAll()
-                        // Employee-only endpoints
+                        .requestMatchers("/api/integration/**/callback").permitAll()
+                        .requestMatchers("/api/webhooks/**").permitAll()
                         .requestMatchers("/api/employee/**").hasRole("EMPLOYEE")
-                        // Manager-only endpoints
                         .requestMatchers("/api/manager/**").hasRole("MANAGER")
+
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable) // We can configure CORS later for frontend integration
                 .build();
     }
 

@@ -14,4 +14,9 @@ public interface Comp_Repo extends JpaRepository<Emp_model, String> {
 
     @Query("SELECT e FROM Emp_model e WHERE e.emp_Email = :empEmail")
     Optional<Emp_model> findByEmpEmail(@Param("empEmail") String empEmail);
+
+    Optional<Emp_model> findByGithubUsername(String githubUsername);
+
+    List<Emp_model> findByTeamsConnectedTrue();
+
 }
