@@ -18,6 +18,13 @@ public class Emp_model {
     private int Casual_leaves;
     private int paid_leaves;
 
+    private String github_username;
+    private String github_access_token;
+    private String ms_teams_access_token;
+
+    private boolean github_connected = false;
+    private boolean teams_connected = false;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Manager_id")
     private Man_model TeamManager;
@@ -51,4 +58,19 @@ public class Emp_model {
 
     public int getPaid_leaves() { return paid_leaves; }
     public void setPaid_leaves(int paid_leaves) { this.paid_leaves = paid_leaves; }
+
+    public String getGithub_username() { return github_username; }
+    public void setGithub_username(String github_username) { this.github_username = github_username; }
+
+    public String getGithub_access_token() { return github_access_token; }
+    public void setGithub_access_token(String github_access_token) { this.github_access_token = github_access_token; }
+
+    public String getMs_teams_access_token() { return ms_teams_access_token; }
+    public void setMs_teams_access_token(String ms_teams_access_token) { this.ms_teams_access_token = ms_teams_access_token; }
+
+    public boolean isGithub_connected() { return github_connected; }
+    public void setGithub_connected(boolean github_connected) { this.github_connected = github_connected; }
+
+    public boolean isTeams_connected() { return teams_connected; }
+    public void setTeams_connected(boolean teams_connected) { this.teams_connected = teams_connected; }
 }
