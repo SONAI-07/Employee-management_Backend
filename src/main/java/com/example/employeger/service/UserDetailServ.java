@@ -25,15 +25,15 @@ public class UserDetailServ implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Try to find as Employee first
-        Optional<Emp_model> empModel = compRepo.findById(username);
-        if (empModel.isPresent()) {
+         Optional<Emp_model> empModel = compRepo.findById(username);
+            if (empModel.isPresent()) {
             Emp_model emp = empModel.get();
             return User.builder()
-                    .username(emp.getEmp_name())
+                    .username(emp.getEmp_id()) // CHANGED FROM getEmp_name() to getEmp_id()
                     .password(emp.getEmp_Password())
-                    .roles(emp.getROLE()) // Spring Security automatically adds "ROLE_" prefix
+                    .roles(emp.getROLE())
                     .build();
-        }
+           }
 
         // Try to find as Manager
         Optional<Man_model> manModel = manRepo.findById(username);
