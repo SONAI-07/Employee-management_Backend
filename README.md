@@ -39,8 +39,6 @@
 
 ## 🧠 Why I Built This
 
-Most performance review systems are fundamentally flawed: they are subjective, retrospective, and rely on self-reported metrics or infrequent manager check-ins. I didn't want to build another standard CRUD dashboard for HR. I wanted to understand what it actually takes to transform an AI capability into a dependable, event-driven software system — one that handles orchestration, state, latency, failures, and real-world execution.
-
 Employeger was built to treat employee performance as a **real-time telemetry problem**. By integrating directly with the tools developers and teams actually use (GitHub for code, Microsoft Teams for communication), I explored how to build a fault-tolerant data pipeline that ingests webhooks, streams them through Apache Kafka, and processes them via a PyTorch neural network to output objective performance scores in near real-time. The goal was to bridge the gap between a strongly-typed Java enterprise backend and a Python-based ML inference engine without compromising the reliability of either.
 
 ---
